@@ -76,7 +76,6 @@ public protocol FSPagerViewDelegate: NSObjectProtocol {
 
 @IBDesignable
 open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelegate {
-    
     // MARK: - Public properties
 
     /// The object that acts as the data source of the pager view.

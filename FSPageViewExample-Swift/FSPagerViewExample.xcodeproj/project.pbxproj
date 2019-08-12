@@ -226,7 +226,7 @@
 				TargetAttributes = {
 					F97C96761E1FDE25002D9E7E = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = HZF422TY46;
+						DevelopmentTeam = MCHJJ4C929;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -461,7 +461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HZF422TY46;
+				DEVELOPMENT_TEAM = MCHJJ4C929;
 				INFOPLIST_FILE = "$(SRCROOT)/FSPagerViewExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wenchaod.FSPagerViewExample;
@@ -475,7 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HZF422TY46;
+				DEVELOPMENT_TEAM = MCHJJ4C929;
 				INFOPLIST_FILE = "$(SRCROOT)/FSPagerViewExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wenchaod.FSPagerViewExample;

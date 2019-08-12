@@ -26,8 +26,21 @@ open class FSPagerViewTransformer: NSObject {
     open internal(set) weak var pagerView: FSPagerView?
     open internal(set) var type: FSPagerViewTransformerType
     
-    open var minimumScale: CGFloat = 0.65
+    @objc
+    open var minimumScale: CGFloat = 0.6
+    @objc
     open var minimumAlpha: CGFloat = 0.6
+    //MARK:增加一些变量来扩展我们需要的效果
+    //弧线变化效果旋转半径
+    @objc
+    open var ferrisWheelRadius: CGFloat = 1000.0
+    //相邻两个元素夹角度数
+    @objc
+    open var ferrisWheelDegree: CGFloat = 6.0
+    //中间元素相对旁边正常大小元素放大倍数，这里我设置的放大到正常倍数1.3
+    
+    @objc
+    open var maxScale: CGFloat = 1.3;
     
     @objc
     public init(type: FSPagerViewTransformerType) {
@@ -183,16 +196,31 @@ open class FSPagerViewTransformer: NSObject {
             var transform = CGAffineTransform.identity
             switch position {
             case -5 ... 5:
-                let itemSpacing = attributes.bounds.width+self.proposedInteritemSpacing()
-                let count: CGFloat = 14
-                let circle: CGFloat = .pi * 2.0
-                let radius = itemSpacing * count / circle
-                let ty = radius * (self.type == .ferrisWheel ? 1 : -1)
-                let theta = circle / count
+//                let itemSpacing = attributes.bounds.width+self.proposedInteritemSpacing()
+//                let count: CGFloat = 10
+//                let circle: CGFloat = .pi * 2.0
+//                let radius = itemSpacing * count / circle //周长=2*pai*R
+//                let ty = radius * (self.type == .ferrisWheel ? 1 : -1)
+//                let theta = circle / count
+//                let rotation = position * theta * (self.type == .ferrisWheel ? 1 : -1)
+//                transform = transform.translatedBy(x: -position*itemSpacing, y: ty)
+//                transform = transform.rotated(by: rotation)
+//                transform = transform.translatedBy(x: 0, y: -ty) //转换y轴坐标
+//                zIndex = Int((4.0-abs(position)*10))
+                
+                ////
+                
+                let itemSpacing:CGFloat =  attributes.bounds.width;
+//                let circle: CGFloat = .pi * 2.0
+                let radius :CGFloat = self.ferrisWheelRadius;
+                let ty:CGFloat = radius * (self.type == .ferrisWheel ? 1 : -1)
+                let theta: CGFloat = .pi * self.ferrisWheelDegree / 180.0
                 let rotation = position * theta * (self.type == .ferrisWheel ? 1 : -1)
+                let scale = max(self.maxScale - (self.maxScale - self.minimumScale) * abs(position), self.minimumScale)
+                transform = transform.scaledBy(x: scale, y: scale) //乘以放大矩阵，整体放大
                 transform = transform.translatedBy(x: -position*itemSpacing, y: ty)
                 transform = transform.rotated(by: rotation)
-                transform = transform.translatedBy(x: 0, y: -ty)
+                transform = transform.translatedBy(x: 0, y: -ty) //转换y轴坐标
                 zIndex = Int((4.0-abs(position)*10))
             default:
                 break
@@ -260,7 +288,7 @@ open class FSPagerViewTransformer: NSObject {
             guard scrollDirection == .horizontal else {
                 return 0
             }
-            return -pagerView.itemSize.width * 0.15
+            return 0;
         case .cubic:
             return 0
         default:

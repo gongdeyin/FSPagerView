@@ -112,16 +112,24 @@ class FSPagerViewLayout: UICollectionViewLayout {
         guard self.itemSpacing > 0, !rect.isEmpty else {
             return layoutAttributes
         }
+        
+        print("origin rect",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height)
+        
         let rect = rect.intersection(CGRect(origin: .zero, size: self.contentSize))
         guard !rect.isEmpty else {
             return layoutAttributes
         }
+        
+        print("rect intersection",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height)
+        
         // Calculate start position and index of certain rects
         let numberOfItemsBefore = self.scrollDirection == .horizontal ? max(Int((rect.minX-self.leadingSpacing)/self.itemSpacing),0) : max(Int((rect.minY-self.leadingSpacing)/self.itemSpacing),0)
         let startPosition = self.leadingSpacing + CGFloat(numberOfItemsBefore)*self.itemSpacing
         let startIndex = numberOfItemsBefore
         // Create layout attributes
         var itemIndex = startIndex
+        
+        print("number of before ",numberOfItemsBefore,"index",startIndex)
         
         var origin = startPosition
         let maxPosition = self.scrollDirection == .horizontal ? min(rect.maxX,self.contentSize.width-self.actualItemSize.width-self.leadingSpacing) : min(rect.maxY,self.contentSize.height-self.actualItemSize.height-self.leadingSpacing)
@@ -272,7 +280,8 @@ class FSPagerViewLayout: UICollectionViewLayout {
         collectionView.bounds = newBounds
     }
     
-    fileprivate func applyTransform(to attributes: FSPagerViewLayoutAttributes, with transformer: FSPagerViewTransformer?) {
+    fileprivate func
+        applyTransform(to attributes: FSPagerViewLayoutAttributes, with transformer: FSPagerViewTransformer?) {
         guard let collectionView = self.collectionView else {
             return
         }
